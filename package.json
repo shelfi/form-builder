@@ -1,7 +1,9 @@
 {
   "name": "formBuilder",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-concat": "^2.5.2"
+  },
   "scripts": {
     "test": "gulp test"
   },

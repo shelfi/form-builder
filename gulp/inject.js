@@ -14,9 +14,12 @@ module.exports = function(options) {
     ], { read: false });
 
     var injectScripts = gulp.src([
-      options.src + '/app/**/*.js',
-      '!' + options.src + '/app/**/*.spec.js',
-      '!' + options.src + '/app/**/*.mock.js'
+      //options.src + '/{app,shelfi-form-builder-app}/**/*.js',
+      //'!' + options.src + '/{app,shelfi-form-builder-app}/**/*.spec.js',
+      //'!' + options.src + '/{app,shelfi-form-builder-app}/**/*.mock.js'
+      options.src + '/**/*.js',
+      '!' + options.src + '/**/*.spec.js',
+      '!' + options.src + '/**/*.mock.js'
     ])
     .pipe($.angularFilesort()).on('error', options.errorHandler('AngularFilesort'));
 

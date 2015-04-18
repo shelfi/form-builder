@@ -7,6 +7,18 @@ var $ = require('gulp-load-plugins')({
 });
 
 module.exports = function(options) {
+
+  gulp.task('shelfi', function () {
+    return gulp.src(options.src + '/shelfi-form-builder-app/**/*.js')
+      .pipe($.ngAnnotate())
+      .pipe($.angularFilesort()).on('error', options.errorHandler('AngularFilesort'))
+      .pipe($.concat('shelfi-form-builder.js'))
+      .pipe(gulp.dest(options.dist + '/'))
+      .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', options.errorHandler('Uglify'))
+      .pipe($.rename('shelfi-form-builder.min.js'))
+      .pipe(gulp.dest(options.dist + '/'));
+  });
+
   gulp.task('partials', function () {
     return gulp.src([
       options.src + '/app/**/*.html',
@@ -18,13 +30,13 @@ module.exports = function(options) {
         quotes: true
       }))
       .pipe($.angularTemplatecache('templateCacheHtml.js', {
-        module: 'formBuilder',
+        module: 'app',
         root: 'app'
       }))
       .pipe(gulp.dest(options.tmp + '/partials/'));
   });
 
-  gulp.task('html', ['inject', 'partials'], function () {
+  gulp.task('html', ['inject', 'partials', 'shelfi'], function () {
     var partialsInjectFile = gulp.src(options.tmp + '/partials/templateCacheHtml.js', { read: false });
     var partialsInjectOptions = {
       starttag: '<!-- inject:partials -->',
@@ -40,7 +52,7 @@ module.exports = function(options) {
     return gulp.src(options.tmp + '/serve/*.html')
       .pipe($.inject(partialsInjectFile, partialsInjectOptions))
       .pipe(assets = $.useref.assets())
-      .pipe($.rev())
+      //.pipe($.rev())
       .pipe(jsFilter)
       .pipe($.ngAnnotate())
       .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', options.errorHandler('Uglify'))

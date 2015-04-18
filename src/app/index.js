@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('formBuilder', ['ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ngMaterial'])
+angular.module('app', ['ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ngMaterial', 'shelfiFormBuilder'])
 	.config(function ($stateProvider, $urlRouterProvider) {
 		$stateProvider.state('home', {
 			url: '/',

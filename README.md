@@ -95,14 +95,35 @@ The output will be
 ```
 
 ### Adding a template
-$templateCache used to store template contents. You can easily add a new template in example below;
+There are three ways to do this.
 
+## 1. (High priority) Use sfFormBuilderProvider in order to store template contents. Example;
+```js
+angular.module('formBuilder')
+	.config(function (sfFormBuilderProvider) {
+		sfFormBuilderProvider.add('newTemplate', 'template content');
+	});
+```
+
+## 2. (Medium priority) Use $templateCache in order to store template contents. Example;
 ```js
 angular.module('formBuilder')
 	.run(function ($templateCache) {
 		$templateCache.put('newTemplate', 'template content');
 	});
 ```
+
+## 3. (Low priority) Inline
+```js
+this.structure = {
+	'<md-button aria-label="Remove" ng-click="ngClick()"><md-icon md-svg-icon="navigation:ic_close_24px"></md-icon></md-button>': {
+		ngClick: function () {
+			console.log('Remove button clicked!');
+		}
+	}
+};
+```
+
 ### Embedded templates
 row, column, inputContainer templates comes with embedded. 
 

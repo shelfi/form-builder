@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('formBuilder')
+angular.module('app')
   .controller('MainCtrl', function () {
     this.structure = {
       row: [
